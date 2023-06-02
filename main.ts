@@ -4,7 +4,7 @@ function doMissle () {
     missle.set(LedSpriteProperty.Brightness, 120)
     missle.set(LedSpriteProperty.Direction, ship.get(LedSpriteProperty.Direction))
     mrun = true
-    for (let index = 0; index < 4; index++) {
+    for (let index = 0; index < 10; index++) {
         missle.move(1)
         if (missle.isTouchingEdge()) {
             missle.turn(Direction.Right, 45)
@@ -47,20 +47,13 @@ basic.forever(function () {
         basic.pause(500)
         if (asteroid.get(LedSpriteProperty.X) == ship.get(LedSpriteProperty.X) && asteroid.get(LedSpriteProperty.Y) == ship.get(LedSpriteProperty.Y)) {
             game.removeLife(1)
-            basic.showLeds(`
-                . . . . .
-                . . . . .
-                . . . . .
-                . . . . .
-                . . . . .
-                `)
             asteroid.delete()
             radio.sendString("boom")
             running = false
         }
         if (mrun) {
             if (asteroid.get(LedSpriteProperty.X) == missle.get(LedSpriteProperty.X) && asteroid.get(LedSpriteProperty.Y) == missle.get(LedSpriteProperty.Y)) {
-                radio.sendString("hit")
+                radio.sendString("h")
                 game.addScore(randint(1, 10))
                 asteroid.delete()
                 running = false
